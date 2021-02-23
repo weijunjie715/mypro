@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.RoleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wei.pojo.RoleInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="role_status" jdbcType="VARCHAR" property="roleStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_code, role_name, remarks,role_status, create_time, create_user, update_time, update_user,
+    is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wei.pojo.RoleInfo">
+    insert into sys_role_info (role_code, role_name,
+      remarks, role_status, create_user,
+       update_user
+      )
+    values ( #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR},
+      #{remarks,jdbcType=VARCHAR},#{roleStatus,jdbcType=VARCHAR},  #{createUser,jdbcType=VARCHAR},
+       #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wei.pojo.RoleInfo">
+    insert into sys_role_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="roleStatus != null">
+        role_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="roleStatus != null">
+        #{roleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wei.pojo.RoleInfo">
+    update sys_role_info
+    <set>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wei.pojo.RoleInfo">
+    update sys_role_info
+    set role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      role_status = #{roleStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--根据角色对象中的信息，获取角色数据-->
+  <select id="selectByRoleInfo" resultMap="BaseResultMap" parameterType="com.wei.pojo.RoleInfo">
+    select <include refid="Base_Column_List"/>
+    from sys_role_info
+    <where>
+      <if test="roleCode != null">
+        and role_code = #{roleCode,jdbcType=VARCHAR}
+      </if>
+      <if test="roleName != null">
+        and role_name = #{roleName,jdbcType=VARCHAR}
+      </if>
+      limit 0,1
+    </where>
+  </select>
+  <!--根据角色信息，更新库表中角色数据（只有角色名、状态可以更新、操作人）-->
+  <update id="updateByRoleInfo" parameterType="com.wei.pojo.RoleInfo">
+    update sys_role_info
+    <set>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="roleStatus != null">
+        role_status = #{roleStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+      where role_code = #{roleCode,jdbcType=VARCHAR}
+
+  </update>
+  <!--获取角色列表数据-->
+  <select id="getRoleInfoList" resultMap="BaseResultMap" parameterType="com.wei.pojo.RoleInfo">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role_info
+    where is_del = 0
+    <if test="roleStatus != null">
+      and role_status = #{roleStatus,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

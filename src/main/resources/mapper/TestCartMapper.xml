@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.TestCartMapper">
+  <resultMap id="BaseResultMap" type="com.wei.pojo.TestCart">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="orderid" jdbcType="VARCHAR" property="orderid" />
+    <result column="iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="usercode" jdbcType="VARCHAR" property="usercode" />
+    <result column="timetype" jdbcType="INTEGER" property="timetype" />
+    <result column="types" jdbcType="INTEGER" property="types" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, orderid, iccid, usercode, timetype, types
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_cart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from test_cart
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wei.pojo.TestCart">
+    insert into test_cart (id, orderid, iccid, 
+      usercode, timetype, types
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, 
+      #{usercode,jdbcType=VARCHAR}, #{timetype,jdbcType=INTEGER}, #{types,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wei.pojo.TestCart">
+    insert into test_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="iccid != null">
+        iccid,
+      </if>
+      <if test="usercode != null">
+        usercode,
+      </if>
+      <if test="timetype != null">
+        timetype,
+      </if>
+      <if test="types != null">
+        types,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null">
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="timetype != null">
+        #{timetype,jdbcType=INTEGER},
+      </if>
+      <if test="types != null">
+        #{types,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wei.pojo.TestCart">
+    update test_cart
+    <set>
+      <if test="orderid != null">
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null">
+        usercode = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="timetype != null">
+        timetype = #{timetype,jdbcType=INTEGER},
+      </if>
+      <if test="types != null">
+        types = #{types,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wei.pojo.TestCart">
+    update test_cart
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      usercode = #{usercode,jdbcType=VARCHAR},
+      timetype = #{timetype,jdbcType=INTEGER},
+      types = #{types,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="testTables" targetRuntime="MyBatis3">
+        <!--新增方案 通用字段统一继承baseMapper，pojo中不生成下列字段列-->
+        <!--<property name="publicColumn" value="create_time,create_user,update_user,update_time,is_del"/>-->
+        <!-- JavaBean 实现 序列化 接口 -->
+        <!--添加mapper接口 生成注解 继承公用mapper插件-->
+        <plugin type="org.mybatis.generator.plugins.MyMapperPlugin">
+            <property name="targetProject" value=".\src\main\java"/>
+            <property name="targetPackage" value="com.wei.mapper"/>
+            <property name="targetPkType" value="java.lang.String"/>
+            <property name="daoSuperClass" value="com.wei.mapper.BaseMapper"/>
+        </plugin>
+        <!--添加service生成插件-->
+        <plugin type="org.mybatis.generator.plugins.MyServicePlugin" >
+            <property name="targetProject" value="./src/main/java"/>
+            <property name="servicePackage" value="com.wei.service"/>
+            <property name="serviceImplPackage" value="com.wei.service.impl"/>
+            <!--UserService,该值则为Service-->
+            <property name="serviceSuffix" value="Service"/>
+            <!--Service接口的父接口-->
+            <property name="superServiceInterface" value="com.wei.service.BaseService"/>
+            <!--ServiceImpl的父类-->
+            <property name="superServiceImpl" value="com.wei.service.impl.BaseServiceImpl"/>
+            <!--controller的父类接口-->
+            <property name="superController" value="com.wei.controller.BaseController"/>
+        </plugin>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+            <property name="suppressJavaInterface" value="false"/>
+        </plugin>
+        <!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->
+        <plugin type="org.mybatis.generator.plugins.rename.RenameSqlMapperPlugin">
+            <property name="searchString" value="Mapper" />
+            <property name="replaceString" value="Mapper" />
+        </plugin>
+
+        <!-- 此处是将UserMapper改名为UserDao 接口 当然 想改成什么都行~  -->
+        <plugin type="org.mybatis.generator.plugins.rename.RenameJavaMapperPlugin">
+            <property name="searchString" value="Mapper$" />
+            <property name="replaceString" value="Mapper" />
+        </plugin>
+        <commentGenerator type="org.mybatis.generator.plugins.comment.MyCommentGenerator">
+            <!-- 是否去除自动生成的注释 true：是 ： false:否-->
+            <property name="suppressAllComments" value="true" />
+
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://sh-cdb-5vlx8obm.sql.tencentcdb.com:62925/my_pro"
+                        userId="root"
+                        password="weijunjie-123">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+            NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+
+        <!-- targetProject:生成PO类的位置 -->
+        <javaModelGenerator targetPackage="com.wei.pojo"
+                            targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+            <!--继承类对象-->
+            <property name="rootClass" value="com.wei.pojo.BaseBean"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="constructorBased" value="true"/>
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject=".\src\main\resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- targetPackage：mapper接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.wei.mapper"
+                             targetProject=".\src\main\java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="true" />
+            <!--指定继承的公用mapper方法-->
+            <property name="rootClass" value="com.wei.mapper.BaseMapper"/>
+        </javaClientGenerator>
+
+        <!-- 指定数据库表 设置example查询方法不生成 -->
+        <table schema="" tableName="test_cart" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId = "false">
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.SysErrorLogMapper">
+  <resultMap id="BaseResultMap" type="com.wei.pojo.SysErrorLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="error_interface" jdbcType="VARCHAR" property="errorInterface" />
+    <result column="error_time" jdbcType="TIMESTAMP" property="errorTime" />
+    <result column="error_code" jdbcType="VARCHAR" property="errorCode" />
+    <result column="error_type" jdbcType="VARCHAR" property="errorType" />
+    <result column="error_exception" jdbcType="VARCHAR" property="errorException" />
+    <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, error_interface, error_time, error_code, error_type, error_exception, error_msg, 
+    create_time, create_user, update_time, update_user, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_error_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_error_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wei.pojo.SysErrorLog">
+    insert into sys_error_log (id, error_interface, error_time, 
+      error_code, error_type, error_exception, 
+      error_msg, create_time, create_user, 
+      update_time, update_user, is_del
+      )
+    values (#{id,jdbcType=INTEGER}, #{errorInterface,jdbcType=VARCHAR}, #{errorTime,jdbcType=TIMESTAMP}, 
+      #{errorCode,jdbcType=VARCHAR}, #{errorType,jdbcType=VARCHAR}, #{errorException,jdbcType=VARCHAR}, 
+      #{errorMsg,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wei.pojo.SysErrorLog">
+    insert into sys_error_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="errorInterface != null">
+        error_interface,
+      </if>
+      <if test="errorTime != null">
+        error_time,
+      </if>
+      <if test="errorCode != null">
+        error_code,
+      </if>
+      <if test="errorType != null">
+        error_type,
+      </if>
+      <if test="errorException != null">
+        error_exception,
+      </if>
+      <if test="errorMsg != null">
+        error_msg,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="errorInterface != null">
+        #{errorInterface,jdbcType=VARCHAR},
+      </if>
+      <if test="errorTime != null">
+        #{errorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorCode != null">
+        #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null">
+        #{errorType,jdbcType=VARCHAR},
+      </if>
+      <if test="errorException != null">
+        #{errorException,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wei.pojo.SysErrorLog">
+    update sys_error_log
+    <set>
+      <if test="errorInterface != null">
+        error_interface = #{errorInterface,jdbcType=VARCHAR},
+      </if>
+      <if test="errorTime != null">
+        error_time = #{errorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorCode != null">
+        error_code = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null">
+        error_type = #{errorType,jdbcType=VARCHAR},
+      </if>
+      <if test="errorException != null">
+        error_exception = #{errorException,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        error_msg = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wei.pojo.SysErrorLog">
+    update sys_error_log
+    set error_interface = #{errorInterface,jdbcType=VARCHAR},
+      error_time = #{errorTime,jdbcType=TIMESTAMP},
+      error_code = #{errorCode,jdbcType=VARCHAR},
+      error_type = #{errorType,jdbcType=VARCHAR},
+      error_exception = #{errorException,jdbcType=VARCHAR},
+      error_msg = #{errorMsg,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

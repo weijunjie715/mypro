@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wei.pojo.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="user_status" jdbcType="VARCHAR" property="userStatus" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_no, user_code, user_name, password, remarks, user_status, role_code, 
+    create_time, create_user, update_time, update_user, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wei.pojo.UserInfo">
+    insert into sys_user_info ( account_no, user_code,
+      user_name, password, remarks, 
+      user_status, role_code,
+      create_user,  update_user)
+    values ( #{accountNo,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{userStatus,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR},
+      #{createUser,jdbcType=VARCHAR},  #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wei.pojo.UserInfo">
+    insert into sys_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wei.pojo.UserInfo">
+    update sys_user_info
+    <set>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wei.pojo.UserInfo">
+    update sys_user_info
+    set account_no = #{accountNo,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=VARCHAR},
+      role_code = #{roleCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectUserInfoByAccount" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user_info
+    where account_no = #{accountNo}
+    and user_status = '1'
+    and is_del = 0
+  </select>
+  <resultMap id="BaseUserInfoVo" type="com.wei.vo.UserInfoVo" extends="BaseResultMap">
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="org_code_str" jdbcType="VARCHAR" property="orgCodeStr" />
+    <result column="org_name_str" jdbcType="VARCHAR" property="orgNameStr" />
+  </resultMap>
+  <sql id="Base_Column_User_role">
+    a.id, a.account_no, a.user_code, a.user_name, a.remarks, a.user_status, a.role_code,
+    a.create_time, a.create_user, a.update_time, a.update_user, a.is_del,b.role_name as role_name,
+    GROUP_CONCAT(d.org_name) as org_name_str,GROUP_CONCAT(d.org_code) as org_code_str
+  </sql>
+  <!--获取用户列表-->
+  <select id="getUserList" resultMap="BaseUserInfoVo">
+    select
+    <include refid="Base_Column_User_role" />
+    from sys_user_info a
+    left join sys_role_info b on a.role_code = b.role_code
+    left join sys_user_organ c on a.user_code = c.user_code
+    left join p_organ_info d on c.org_code = d.org_code
+    <where>
+      <choose>
+        <when test="queryMap == null">
+          and a.is_del = 0
+        </when>
+        <otherwise>
+          and a.is_del = 0
+          <if test="queryMap.userName != null and queryMap.userName != ''">
+            and a.user_name = #{queryMap.userName}
+          </if>
+          <if test="queryMap.roleCode != null and queryMap.roleCode != ''">
+            and a.role_code = #{queryMap.roleCode}
+          </if>
+          group by a.user_code
+          <if test="page.sort != null and page.sort != ''">
+            order by ${page.sort}
+            <if test="page.order != null and page.order != ''">
+              ${page.order}
+            </if>
+          </if>
+        </otherwise>
+      </choose>
+    </where>
+  </select>
+  <!--根据用户对象获取用户信息-->
+  <select id="selectByUserInfo" resultMap="BaseResultMap" parameterType="com.wei.pojo.UserInfo">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user_info
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="accountNo != null">
+        and account_no = #{accountNo,jdbcType=VARCHAR}
+      </if>
+      <if test="userCode != null">
+        and user_code = #{userCode,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null">
+        and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userStatus != null">
+        and user_status = #{userStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="roleCode != null">
+        and role_code = #{roleCode,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <!--删除用户信息数据（根据用户code修改用户表增删标志）-->
+  <update id="updateUserInfo" parameterType="com.wei.pojo.UserInfo">
+    update sys_user_info
+    <set>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_code = #{userCode,jdbcType=VARCHAR}
+  </update>
+  <!--根据角色code更新对应的用户的状态-->
+  <update id="updateByRoleCode">
+    update sys_user_info
+    <set>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_code = #{roleCode,jdbcType=VARCHAR}
+  </update>
+</mapper>
