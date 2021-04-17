@@ -338,6 +338,75 @@ public class BaseController {
         }
 
     }
+    
+    /**
+	 * 导出zip文件到浏览器
+	 *
+	 * @param fileName
+	 * @param response
+	 * @param urlByFile
+	 * @param pathName
+	 * @throws Exception
+	 */
+	public static void writeZIPToWeb(String fileName, HttpServletResponse response,
+									 ArrayList<HashMap<String, Object>> urlByFile, HashMap<String, Object> pathName) throws Exception {
+		InputStream inputStream = null;
+		//响应头的设置
+		response.reset();
+		response.setContentType("application/force-download");
+		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+		response.setContentType("application/octet-stream;charset=utf-8");
+		//设置压缩流：直接写入response，实现边压缩边下载
+		ZipOutputStream zipos = null;
+		zipos = new ZipOutputStream(new BufferedOutputStream(response.getOutputStream()));
+		//设置压缩方法
+		zipos.setMethod(ZipOutputStream.DEFLATED);
+		DataOutputStream os = null;
+
+		try {
+			for (HashMap<String, Object> urlls : urlByFile) {
+				String na = urlls.get("name").toString();
+				System.out.println(na);
+				for (String name : pathName.keySet()) {
+					try {
+						if (StringUtils.isBlank(urlls.get(name).toString())) {
+							continue;
+						}
+						URL url = new URL(urlls.get(name).toString());
+						URLConnection conn = url.openConnection();
+						inputStream = conn.getInputStream();
+						//添加ZipEntry，并ZipEntry中写入文件流
+						zipos.putNextEntry(new ZipEntry(na + "\\" + pathName.get(name).toString()));
+						System.out.println("开始下载：" + na + "\\" + pathName.get(name).toString());
+						os = new DataOutputStream(zipos);
+						byte[] buff = new byte[1024 * 10];
+						int len = 0;
+						//循环读写
+						while ((len = inputStream.read(buff)) > -1) {
+							os.write(buff, 0, len);
+							//System.out.println(na+"\\"+pathName.get(name).toString());
+						}
+						//关闭此文件流
+						inputStream.close();
+						//关闭当前ZIP项，并将流放置到写入的位置。下一个条目。
+						zipos.closeEntry();
+					} catch (Exception e) {
+						e.printStackTrace();
+						continue;
+					}
+				}
+			}//释放资源
+			os.flush();
+			os.close();
+			zipos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			//释放资源
+			os.close();
+			zipos.close();
+		}
+	}
 
 
 }
